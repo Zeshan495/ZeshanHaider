@@ -1,128 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Zeshan Haider | Freelance Web Designer</title>
-<style>
-  /* Reset and base */
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    background: #f9f9f9;
-    color: #333;
-  }
-  .container {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
-  header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: #007acc;
-  }
-  header p {
-    font-size: 1.2rem;
-    color: #555;
-  }
-  section {
-    margin-bottom: 3rem;
-  }
-  h2 {
-    color: #007acc;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #007acc;
-    display: inline-block;
-    padding-bottom: 0.25rem;
-  }
-  ul.services-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap: 1rem;
-  }
-  ul.services-list li {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  }
-  ul.services-list li::before {
-    content: "✅";
-    margin-right: 0.5rem;
-  }
-  footer {
-    text-align: center;
-    color: #777;
-    margin-top: 3rem;
-    font-size: 0.9rem;
-  }
-  a.button {
-    display: inline-block;
-    background: #007acc;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 30px;
-    text-decoration: none;
-    margin-top: 1rem;
-    transition: background 0.3s ease;
-  }
-  a.button:hover {
-    background: #005f99;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zeshan Haider | Freelance Web Designer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 5px solid #FFD700;
+      object-fit: cover;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .header-text {
+      flex: 1;
+    }
+
+    .header-text h1 {
+      font-size: 2rem;
+      color: #007acc;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-text p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    a.button {
+      display: inline-block;
+      background: #007acc;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    a.button:hover {
+      background: #005f99;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      color: #007acc;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #007acc;
+      display: inline-block;
+      padding-bottom: 0.25rem;
+    }
+
+    ul.services-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    ul.services-list li {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    ul.services-list li::before {
+      content: "✅";
+      margin-right: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      color: #777;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    /* --- Responsive adjustments for mobile --- */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .header-text h1 {
+        font-size: 1.8rem;
+      }
+
+      .header-text p {
+        font-size: 1rem;
+      }
+
+      .profile-pic {
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <header>
+      <img src="zeshan.jpg" alt="Zeshan Haider" class="profile-pic" />
+      <div class="header-text">
+        <h1>👋 Assalamualaikum! I'm Zeshan Haider</h1>
+        <p>Freelance Web Designer & Digital Creator | Pakistan 🇵🇰</p>
+        <a href="mailto:zeshan@skygrammar.com" class="button">Hire Me</a>
+      </div>
+    </header>
 
-<div class="container">
-  <header>
-    <h1>👋 Assalamualaikum! I'm Zeshan Haider</h1>
-    <p>Freelance Web Designer & Digital Creator | Pakistan 🇵🇰</p>
-    <a href="mailto:zeshan@skygrammar.com" class="button">Hire Me</a>
-  </header>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>With over 4+ years of experience, I help clients elevate their online presence — from clean, fast websites to creative digital assets. I’ve worked with clients in Pakistan 🇵🇰 and abroad 🌍, delivering high-quality solutions on time.</p>
+    </section>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>With over 4+ years of experience, I help clients elevate their online presence — from clean, fast websites to creative digital assets. I’ve worked with clients in Pakistan 🇵🇰 and abroad 🌍, delivering high-quality solutions on time.</p>
-  </section>
+    <section id="services">
+      <h2>Services I Offer</h2>
+      <ul class="services-list">
+        <li>Business Websites (Custom or WordPress)</li>
+        <li>Portfolio & Personal Branding Sites</li>
+        <li>Landing Pages, Lead Funnels, & Digital Ads</li>
+        <li>Performance Optimization (SEO, Speed, Mobile)</li>
+        <li>Video Editing (CapCut)</li>
+      </ul>
+    </section>
 
-  <section id="services">
-    <h2>Services I Offer</h2>
-    <ul class="services-list">
-      <li>Business Websites (Custom or WordPress)</li>
-      <li>Portfolio & Personal Branding Sites</li>
-      <li>Landing Pages, Lead Funnels, & Digital Ads</li>
-      <li>Performance Optimization (SEO, Speed, Mobile)</li>
-      <li>Video Editing (CapCut)</li>
-    </ul>
-  </section>
+    <section id="skills">
+      <h2>Skills & Tools</h2>
+      <p><strong>CMS & Builders:</strong> WordPress</p>
+      <p><strong>Design:</strong> Canva, Photoshop</p>
+      <p><strong>Hosting & Domain:</strong> GoDaddy, Hostinger, Namecheap</p>
+      <p><strong>Others:</strong> SEO Basics, Analytics</p>
+    </section>
 
-  <section id="skills">
-    <h2>Skills & Tools</h2>
-    <p><strong>CMS & Builders:</strong> WordPress</p>
-    <p><strong>Design:</strong> Canva, Photoshop</p>
-    <p><strong>Hosting & Domain:</strong> GoDaddy, Hostinger, Namecheap</p>
-    <p><strong>Others:</strong> SEO Basics, Analytics</p>
-  </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>I'm available for freelance projects and collaborations — especially for businesses looking to improve their digital footprint.</p>
+      <p>Email: <a href="mailto:zeshan@skygrammar.com">zeshan@skygrammar.com</a></p>
+    </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>I'm available for freelance projects and collaborations — especially for businesses looking to improve their digital footprint.</p>
-    <p>Email: <a href="mailto:zeshan@skygrammar.com">zeshan@skygrammar.com</a></p>
-  </section>
-</div>
-
-<footer>
-  &copy; 2025 Zeshan Haider. All rights reserved.
-</footer>
-
+    <footer>
+      &copy; 2025 Zeshan Haider. All rights reserved.
+    </footer>
+  </div>
 </body>
 </html>
