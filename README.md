@@ -31,7 +31,7 @@ With over 4+ years of experience, I help clients elevate their online presence �
 I’m available for freelance projects and collaborations — especially for businesses looking to improve their digital footprint.
 
 - 🌐 Hire Me: 
-- 📧 Email: [zeshan@skygrammar.com](mailto:youremail@example.com)
+- 📧 Email: [admin@zeshanhaider.dev](mailto:youremail@example.com)
 
 
 ---
