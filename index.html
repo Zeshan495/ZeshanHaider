@@ -103,6 +103,37 @@
       margin-right: 0.5rem;
     }
 
+    #payments {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .payment-logos {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .payment-logos div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 120px;
+    }
+
+    .payment-logos img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .payment-logos img:hover {
+      transform: scale(1.05);
+    }
+
     footer {
       text-align: center;
       color: #777;
@@ -110,7 +141,45 @@
       font-size: 0.9rem;
     }
 
-    /* --- Responsive adjustments for mobile --- */
+    /* Contact Form Styling */
+    #contact form {
+      max-width: 500px;
+      margin-top: 1.5rem;
+    }
+
+    #contact form label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+      color: #007acc;
+    }
+
+    #contact form input,
+    #contact form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    #contact form button {
+      background: #007acc;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    #contact form button:hover {
+      background: #005f99;
+    }
+
     @media (max-width: 768px) {
       header {
         flex-direction: column;
@@ -169,7 +238,34 @@
     <section id="contact">
       <h2>Contact</h2>
       <p>I'm available for freelance projects and collaborations — especially for businesses looking to improve their digital footprint.</p>
-      <p>Email: <a href="mailto:zeshan@skygrammar.com">zeshan@skygrammar.com</a></p>
+      
+      <!-- Contact Form -->
+      <form action="https://formspree.io/f/mldnddoz" method="POST">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="_replyto" required />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <section id="payments">
+      <h2>Payment Methods Accepted</h2>
+      <div class="payment-logos">
+        <div>
+          <img src="https://www.payoneer.com/wp-content/uploads/stacked-payoneer-logo-light-background.jpg.webp" alt="Payoneer" />
+          <p>Payoneer</p>
+        </div>
+        <div>
+          <img src="https://d21buns5ku92am.cloudfront.net/69645/images/470455-Frame%2039263-cdfad6-original-1677657684.png" alt="Wise" />
+          <p>Wise</p>
+        </div>
+      </div>
     </section>
 
     <footer>
