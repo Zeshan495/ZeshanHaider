@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zeshan Haider | Freelance Web Designer</title>
+
+ <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="zeshan.jpg" />
+
   <style>
     * {
       margin: 0;
@@ -32,6 +36,13 @@
       margin-bottom: 2rem;
     }
 
+    .profile-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
     .profile-pic {
       width: 160px;
       height: 160px;
@@ -40,6 +51,36 @@
       object-fit: cover;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       flex-shrink: 0;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.3rem;
+      text-decoration: none;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .social.yt { background-color: #FF0000; }
+    .social.tt { background-color: #000; }
+    .social.fb { background-color: #1877F2; }
+    .social.ig {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+
+    .social:hover {
+      opacity: 0.8;
+      transform: scale(1.1);
     }
 
     .header-text {
@@ -141,42 +182,54 @@
       font-size: 0.9rem;
     }
 
-    /* Contact Form Styling */
-    #contact form {
+    /* Contact form styles */
+    form.contact-form {
       max-width: 500px;
-      margin-top: 1.5rem;
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      margin-top: 1rem;
     }
 
-    #contact form label {
+    form.contact-form label {
       display: block;
       margin-bottom: 0.3rem;
       font-weight: 600;
       color: #007acc;
     }
 
-    #contact form input,
-    #contact form textarea {
+    form.contact-form input,
+    form.contact-form textarea {
       width: 100%;
       padding: 0.5rem;
       margin-bottom: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-family: inherit;
+      border: 2px solid #ddd;
+      border-radius: 6px;
       font-size: 1rem;
+      resize: vertical;
+      transition: border-color 0.3s ease;
     }
 
-    #contact form button {
+    form.contact-form input:focus,
+    form.contact-form textarea:focus {
+      outline: none;
+      border-color: #007acc;
+      box-shadow: 0 0 8px rgba(0,122,204,0.4);
+    }
+
+    form.contact-form button {
       background: #007acc;
       color: white;
-      padding: 0.75rem 1.5rem;
       border: none;
+      padding: 0.75rem 1.5rem;
       border-radius: 30px;
       cursor: pointer;
-      font-weight: 600;
+      font-size: 1rem;
       transition: background 0.3s ease;
     }
 
-    #contact form button:hover {
+    form.contact-form button:hover {
       background: #005f99;
     }
 
@@ -195,7 +248,11 @@
       }
 
       .profile-pic {
-        margin-bottom: 1rem;
+        margin-bottom: 0;
+      }
+
+      .social-icons {
+        justify-content: center;
       }
     }
   </style>
@@ -203,7 +260,15 @@
 <body>
   <div class="container">
     <header>
-      <img src="zeshan.jpg" alt="Zeshan Haider" class="profile-pic" />
+      <div class="profile-column">
+        <img src="zeshan.jpg" alt="Zeshan Haider" class="profile-pic" />
+        <div class="social-icons">
+          <a href="https://www.youtube.com/@zeshantechguru" target="_blank" class="social yt" aria-label="YouTube">📺</a>
+          <a href="https://www.tiktok.com/@zeshantechguru" target="_blank" class="social tt" aria-label="TikTok">🎵</a>
+          <a href="https://www.facebook.com/zeshantechguru" target="_blank" class="social fb" aria-label="Facebook">📘</a>
+          <a href="https://www.instagram.com/zeshantechguru" target="_blank" class="social ig" aria-label="Instagram">📸</a>
+        </div>
+      </div>
       <div class="header-text">
         <h1>👋 Assalamualaikum! I'm Zeshan Haider</h1>
         <p>Freelance Web Designer & Digital Creator | Pakistan 🇵🇰</p>
@@ -238,17 +303,20 @@
     <section id="contact">
       <h2>Contact</h2>
       <p>I'm available for freelance projects and collaborations — especially for businesses looking to improve their digital footprint.</p>
-      
-      <!-- Contact Form -->
-      <form action="https://formspree.io/f/mldnddoz" method="POST">
+
+      <form
+        class="contact-form"
+        action="https://formspree.io/f/mldnddoz" 
+        method="POST"
+      >
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" required />
+        <input type="text" id="name" name="name" placeholder="Your full name" required />
 
         <label for="email">Email</label>
-        <input type="email" id="email" name="_replyto" required />
+        <input type="email" id="email" name="_replyto" placeholder="Your email address" required />
 
         <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
+        <textarea id="message" name="message" rows="5" placeholder="Your message..." required></textarea>
 
         <button type="submit">Send Message</button>
       </form>
