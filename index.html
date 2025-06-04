@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zeshan Haider | Freelance Web Designer</title>
-
- <!-- Favicon -->
   <link rel="icon" type="image/jpeg" href="zeshan.jpg" />
 
   <style>
@@ -77,6 +75,14 @@
     .social.ig {
       background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
     }
+    .social.gh {
+      background-color: #24292e;
+    }
+    .social.gh img {
+      width: 20px;
+      height: 20px;
+      filter: invert(1);
+    }
 
     .social:hover {
       opacity: 0.8;
@@ -144,6 +150,46 @@
       margin-right: 0.5rem;
     }
 
+    #testimonials {
+      margin-bottom: 3rem;
+      background: #007acc10;
+      padding: 2rem 1rem;
+      border-radius: 8px;
+    }
+
+    #testimonials h2 {
+      color: #007acc;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .testimonial-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .testimonial {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 122, 204, 0.15);
+      font-style: italic;
+      color: #333;
+      position: relative;
+    }
+
+    .testimonial footer {
+      margin-top: 1rem;
+      font-weight: 600;
+      font-style: normal;
+      color: #007acc;
+      text-align: right;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
     #payments {
       margin-top: 2rem;
       text-align: center;
@@ -182,7 +228,6 @@
       font-size: 0.9rem;
     }
 
-    /* Contact form styles */
     form.contact-form {
       max-width: 500px;
       background: white;
@@ -262,11 +307,14 @@
     <header>
       <div class="profile-column">
         <img src="zeshan.jpg" alt="Zeshan Haider" class="profile-pic" />
-        <div class="social-icons">
+         <div class="social-icons">
           <a href="https://www.youtube.com/@zeshantechguru" target="_blank" class="social yt" aria-label="YouTube">📺</a>
           <a href="https://www.tiktok.com/@zeshantechguru" target="_blank" class="social tt" aria-label="TikTok">🎵</a>
-          <a href="https://www.facebook.com/zeshantechguru" target="_blank" class="social fb" aria-label="Facebook">📘</a>
+          <a href="https://www.facebook.com/zeshantech" target="_blank" class="social fb" aria-label="Facebook">📘</a>
           <a href="https://www.instagram.com/zeshantechguru" target="_blank" class="social ig" aria-label="Instagram">📸</a>
+          <a href="https://github.com/Zeshan495" target="_blank" class="social gh" aria-label="GitHub">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub" />
+          </a>
         </div>
       </div>
       <div class="header-text">
@@ -300,23 +348,45 @@
       <p><strong>Others:</strong> SEO Basics, Analytics</p>
     </section>
 
+    <section id="testimonials">
+      <h2>What Clients Say</h2>
+      <div class="testimonial-list">
+        <blockquote class="testimonial">
+          <p>“Zeshan delivered exactly what we wanted — professional, timely, and exceeded expectations!”</p>
+          <footer>
+            <img src="https://flagcdn.com/24x18/pk.png" alt="Pakistan Flag" width="24" height="18" style="vertical-align: middle; margin-right: 6px;">
+            Ahmed
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p>“Highly recommend Zeshan for anyone looking for a clean and fast website.”</p>
+          <footer>
+            <img src="https://flagcdn.com/24x18/gb.png" alt="UK Flag" width="24" height="18" style="vertical-align: middle; margin-right: 6px;">
+            Sarah
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p>“Creative and responsive, great communication throughout the project.”</p>
+          <footer>
+            <img src="https://flagcdn.com/24x18/us.png" alt="USA Flag" width="24" height="18" style="vertical-align: middle; margin-right: 6px;">
+            David
+          </footer>
+        </blockquote>
+      </div>
+    </section>
+
     <section id="contact">
       <h2>Contact</h2>
       <p>I'm available for freelance projects and collaborations — especially for businesses looking to improve their digital footprint.</p>
+      <form class="contact-form" action="https://formspree.io/f/mldnddoz" method="POST">
+        <label for="name">Name:</label>
+        <input id="name" type="text" name="name" placeholder="Your full name" required />
 
-      <form
-        class="contact-form"
-        action="https://formspree.io/f/mldnddoz" 
-        method="POST"
-      >
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your full name" required />
+        <label for="email">Email:</label>
+        <input id="email" type="email" name="_replyto" placeholder="Your email address" required />
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="_replyto" placeholder="Your email address" required />
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" placeholder="Your message..." required></textarea>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
 
         <button type="submit">Send Message</button>
       </form>
