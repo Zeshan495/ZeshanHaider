@@ -274,6 +274,7 @@
       transform: translateY(6px) scale(0.99);
       transition: opacity var(--transition-med), transform var(--transition-med);
       text-shadow: none;
+      white-space: pre-wrap;
     }
 
     .message-text.visible {
@@ -284,6 +285,21 @@
     body.theme-night .message-text {
       color: #f7ecff;
       text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+    }
+
+    /* ✨ Blinking cursor while typing */
+    .message-text.typing::after {
+      content: "▌";
+      display: inline-block;
+      margin-left: 2px;
+      animation: blinkCursor 0.8s steps(2, start) infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes blinkCursor {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     .message-meta {
@@ -837,6 +853,11 @@
     let messageQueue = shuffle(loveMessages);
     let clickCount = 0;
 
+    // Typewriter state
+    let isTyping = false;
+    let typingTimeoutId = null;
+    let currentFullMessage = "";
+
     const messageTextEl = document.getElementById("messageText");
     const clickCountEl = document.getElementById("clickCount");
     const timestampEl = document.getElementById("timestamp");
@@ -972,6 +993,50 @@
       }
     }
 
+    // ✨ Typewriter: actually types the message
+    function typeMessage(text) {
+      isTyping = true;
+      currentFullMessage = text;
+
+      // reset content + classes
+      if (typingTimeoutId) {
+        clearTimeout(typingTimeoutId);
+        typingTimeoutId = null;
+      }
+      messageTextEl.textContent = "";
+      messageTextEl.classList.add("visible", "typing");
+
+      let index = 0;
+      const speed = 35; // ms per character
+
+      function step() {
+        if (!isTyping) return; // typing was cancelled
+        if (index < text.length) {
+          messageTextEl.textContent += text.charAt(index);
+          index++;
+          typingTimeoutId = setTimeout(step, speed);
+        } else {
+          finishTyping();
+        }
+      }
+
+      step();
+    }
+
+    // Finish typing instantly (used when clicking again)
+    function finishTyping() {
+      if (typingTimeoutId) {
+        clearTimeout(typingTimeoutId);
+        typingTimeoutId = null;
+      }
+      if (currentFullMessage !== null) {
+        messageTextEl.textContent = currentFullMessage;
+      }
+      isTyping = false;
+      messageTextEl.classList.remove("typing");
+    }
+
+    // ❤️ Show next message (with typewriter)
     function showNextMessage() {
       if (messageQueue.length === 0) {
         messageQueue = shuffle(loveMessages);
@@ -980,23 +1045,23 @@
       const nextMessage = messageQueue.shift();
       clickCount++;
 
-      messageTextEl.classList.remove("visible");
-      setTimeout(() => {
-        messageTextEl.textContent = nextMessage;
-        messageTextEl.classList.add("visible");
-      }, 120);
-
+      // update stats & storage
       clickCountEl.textContent = clickCount.toString();
       timestampEl.textContent = "Last tap: " + formatTime(new Date());
-
       try {
         localStorage.setItem("loveSite_clickCount", String(clickCount));
         localStorage.setItem("loveSite_lastMessage", nextMessage);
       } catch (e) {}
 
+      messageTextEl.classList.remove("visible", "typing");
+
+      // pulse heart + sound + meter
       pulseHeart();
       playClickSound();
       updateLoveMeter();
+
+      // start typing new message
+      typeMessage(nextMessage);
     }
 
     function pulseHeart() {
@@ -1160,9 +1225,11 @@
         }
 
         if (lastMessage) {
+          currentFullMessage = lastMessage;
           messageTextEl.textContent = lastMessage;
           messageTextEl.classList.add("visible");
         } else {
+          // first time: show first message with typing
           showNextMessage();
         }
 
@@ -1171,6 +1238,7 @@
         }
       } catch (e) {
         // ignore localStorage errors
+        showNextMessage();
       }
 
       updateThemeToggleText();
@@ -1182,18 +1250,27 @@
       miniNote.textContent = `Love engine running since ${year}.`;
     }
 
-    heartButton.addEventListener("click", () => {
-      showNextMessage();
+    // ❤️ Heart click handler with "skip typing" behaviour
+    function handleHeartClick() {
+      if (isTyping) {
+        // If it's still typing, finish instantly instead of going to next
+        finishTyping();
+      } else {
+        showNextMessage();
+      }
+
       const rect = heartButton.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
       spawnFloatingHeart(x, y);
-    });
+    }
+
+    heartButton.addEventListener("click", handleHeartClick);
 
     heartButton.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        heartButton.click();
+        handleHeartClick();
       }
     });
 
