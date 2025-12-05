@@ -12,21 +12,21 @@
 
   <style>
     :root {
-      /* Day & night gradients */
-      --bg-gradient-day: radial-gradient(circle at top, #ffb6d4 0%, #ff7fae 35%, #ee4d93 65%, #4b134f 100%);
+      /* Softer day gradient with pink + white */
+      --bg-gradient-day: radial-gradient(circle at top, #fff5fb 0%, #ffe6f3 35%, #ffd4e8 65%, #ffedf8 100%);
       --bg-gradient-night: radial-gradient(circle at top, #1b1033 0%, #0b0718 45%, #02010a 100%);
 
-      --card-bg-day: rgba(255, 255, 255, 0.16);
+      --card-bg-day: rgba(255, 255, 255, 0.7);
       --card-bg-night: rgba(9, 7, 30, 0.85);
 
-      --card-border-day: rgba(255, 255, 255, 0.38);
+      --card-border-day: rgba(255, 182, 193, 0.7);
       --card-border-night: rgba(255, 255, 255, 0.18);
 
-      --text-main-day: #ffffff;
+      --text-main-day: #4a1035;
       --text-main-night: #f6ebff;
 
       --accent: #ff4b8a;
-      --shadow-soft-day: 0 18px 40px rgba(0,0,0,0.3);
+      --shadow-soft-day: 0 18px 40px rgba(0,0,0,0.18);
       --shadow-soft-night: 0 22px 50px rgba(0,0,0,0.75);
 
       --transition-fast: 180ms ease-out;
@@ -64,10 +64,10 @@
       pointer-events: none;
       background:
         radial-gradient(circle at 10% 20%, rgba(255,255,255,0.20), transparent 55%),
-        radial-gradient(circle at 90% 10%, rgba(255,192,203,0.30), transparent 60%),
-        radial-gradient(circle at 80% 90%, rgba(255,105,180,0.25), transparent 55%);
+        radial-gradient(circle at 90% 10%, rgba(255,192,203,0.22), transparent 60%),
+        radial-gradient(circle at 80% 90%, rgba(255,182,193,0.18), transparent 55%);
       mix-blend-mode: screen;
-      opacity: 0.9;
+      opacity: 0.7;
       z-index: 0;
     }
 
@@ -93,10 +93,10 @@
       font-weight: 700;
       letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 192, 203, 0.22);
       text-shadow:
-        0 0 18px rgba(255,105,180,0.9),
-        0 0 45px rgba(255,150,210,0.9);
+        0 0 18px rgba(255,105,180,0.8),
+        0 0 45px rgba(255,150,210,0.8);
       opacity: 0.75;
       animation: slowDrift 20s ease-in-out infinite alternate;
     }
@@ -199,10 +199,10 @@
     .pill-btn {
       appearance: none;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,128,160,0.8);
       padding: 0.28rem 0.9rem;
       font-size: 0.8rem;
-      background: rgba(0,0,0,0.16);
+      background: rgba(255,255,255,0.6);
       color: inherit;
       cursor: pointer;
       display: inline-flex;
@@ -220,9 +220,9 @@
     }
 
     .pill-btn:hover {
-      background: rgba(0,0,0,0.3);
+      background: rgba(255,255,255,0.9);
       transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
     }
 
     .pill-btn:active {
@@ -236,18 +236,20 @@
       border-radius: 1rem;
       padding: 12px 15px 15px;
       margin: 8px 0 20px;
-      background: rgba(255,255,255,0.20);
-      border: 1px solid rgba(255,255,255,0.30);
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,182,193,0.9);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       font-size: 0.93rem;
       line-height: 1.55;
       animation: fadeInDates 1.2s ease-out;
+      color: #4a1035;
     }
 
     body.theme-night .special-dates {
       background: rgba(255,255,255,0.08);
       border-color: rgba(255,255,255,0.25);
+      color: #f6ebff;
     }
 
     .special-dates .dates-row {
@@ -329,8 +331,8 @@
 
     .message-bubble {
       border-radius: 1.4rem;
-      border: 1px solid rgba(255,255,255,0.55);
-      background: linear-gradient(145deg, rgba(255,255,255,0.38), rgba(255,255,255,0.16));
+      border: 1px solid rgba(255,182,193,0.9);
+      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,238,245,0.95));
       padding: 1rem 1.1rem 1.1rem;
       position: relative;
       overflow: hidden;
@@ -345,11 +347,11 @@
       font-size: 1.03rem;
       line-height: 1.6;
       font-weight: 500;
-      color: #3b1437;
+      color: #4a1035;
       opacity: 0;
       transform: translateY(6px) scale(0.99);
       transition: opacity var(--transition-med), transform var(--transition-med);
-      text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+      text-shadow: none;
     }
 
     .message-text.visible {
@@ -395,7 +397,7 @@
       border: none;
       cursor: pointer;
       outline: none;
-      background: radial-gradient(circle at 30% 20%, #ffd1e5, #ff4b8a);
+      background: radial-gradient(circle at 30% 20%, #ffe1f0, #ff4b8a);
       box-shadow:
         0 14px 28px rgba(0,0,0,0.35),
         0 0 0 6px rgba(255,255,255,0.25);
@@ -661,9 +663,6 @@
           <button id="themeToggle" class="pill-btn" type="button">
             🌙 Night mode
           </button>
-          <button id="soundToggle" class="pill-btn" type="button">
-            🔔 Sound: Off
-          </button>
         </div>
       </div>
 
@@ -730,8 +729,8 @@
     </section>
   </main>
 
-  <!-- Soft music: put soft-piano.mp3 in same folder or change src to your file -->
-  <audio id="loveAudio" src="soft-piano.mp3" preload="auto"></audio>
+  <!-- Background music: ensure soft-piano.mp3 is in same folder -->
+  <audio id="loveAudio" src="soft-piano.mp3" preload="auto" loop></audio>
 
   <script>
     // 💌 Customize these love messages for ZA if you like
@@ -759,8 +758,9 @@
 
     let messageQueue = shuffle(loveMessages);
     let clickCount = 0;
-    let soundEnabled = false;
+    let soundEnabled = true;        // sound ON by default
     let galleryUnlocked = false;
+    let audioStarted = false;       // ensure audio starts once on first interaction
 
     const messageTextEl = document.getElementById("messageText");
     const clickCountEl = document.getElementById("clickCount");
@@ -769,7 +769,6 @@
     const bgHearts = document.getElementById("bgHearts");
     const miniNote = document.getElementById("miniNote");
     const themeToggle = document.getElementById("themeToggle");
-    const soundToggle = document.getElementById("soundToggle");
     const loveAudio = document.getElementById("loveAudio");
     const loveCounterEl = document.getElementById("loveCounter");
     const fireworksContainer = document.getElementById("fireworks");
@@ -796,8 +795,19 @@
       themeToggle.textContent = isNight ? "☀ Day mode" : "🌙 Night mode";
     }
 
-    function updateSoundToggleText() {
-      soundToggle.textContent = soundEnabled ? "🔔 Sound: On" : "🔕 Sound: Off";
+    function startBackgroundAudio() {
+      if (!soundEnabled || !loveAudio || audioStarted) return;
+      audioStarted = true;
+      loveAudio.loop = true;
+      loveAudio.volume = 0.6;
+      loveAudio.play().catch(() => {
+        // autoplay might still be blocked, but next interaction will try again
+        audioStarted = false;
+      });
+    }
+
+    function playSoundIfEnabled() {
+      startBackgroundAudio();
     }
 
     function showNextMessage() {
@@ -903,7 +913,6 @@
         const lastMessage = localStorage.getItem("loveSite_lastMessage");
         const storedClicks = localStorage.getItem("loveSite_clickCount");
         const savedTheme = localStorage.getItem("loveSite_theme");
-        const savedSound = localStorage.getItem("loveSite_sound");
         const savedGallery = localStorage.getItem("loveSite_galleryUnlocked");
 
         if (storedClicks) {
@@ -922,7 +931,6 @@
           document.body.classList.add("theme-night");
         }
 
-        soundEnabled = savedSound === "on";
         galleryUnlocked = savedGallery === "true";
       } catch (e) {
         // ignore localStorage errors
@@ -933,20 +941,11 @@
       }
 
       updateThemeToggleText();
-      updateSoundToggleText();
     }
 
     function setMiniNote() {
       const year = new Date().getFullYear();
       miniNote.textContent = `Love engine running since ${year}.`;
-    }
-
-    function playSoundIfEnabled() {
-      if (!soundEnabled || !loveAudio) return;
-      try {
-        loveAudio.currentTime = 0;
-        loveAudio.play().catch(() => {});
-      } catch (e) {}
     }
 
     function unlockGalleryUI() {
@@ -975,6 +974,7 @@
     }
 
     heartButton.addEventListener("click", () => {
+      startBackgroundAudio();
       showNextMessage();
       const rect = heartButton.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
@@ -993,6 +993,7 @@
       const isHeartButton = heartButton.contains(event.target);
       if (!isHeartButton) {
         spawnFloatingHeart(event.clientX, event.clientY);
+        startBackgroundAudio();
       }
     });
 
@@ -1002,14 +1003,6 @@
       try {
         const mode = document.body.classList.contains("theme-night") ? "night" : "day";
         localStorage.setItem("loveSite_theme", mode);
-      } catch (e) {}
-    });
-
-    soundToggle.addEventListener("click", () => {
-      soundEnabled = !soundEnabled;
-      updateSoundToggleText();
-      try {
-        localStorage.setItem("loveSite_sound", soundEnabled ? "on" : "off");
       } catch (e) {}
     });
 
