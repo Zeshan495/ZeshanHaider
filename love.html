@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For My Love 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at top, #ffdde1 0%, #ee9ca7 40%, #4b134f 100%);
+      --card-bg: rgba(255, 255, 255, 0.15);
+      --card-border: rgba(255, 255, 255, 0.35);
+      --text-main: #ffffff;
+      --accent: #ff4b8a;
+      --accent-soft: rgba(255, 75, 138, 0.35);
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.25);
+      --transition-fast: 180ms ease-out;
+      --transition-med: 260ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Soft glow overlay */
+    .glow-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.20), transparent 55%),
+        radial-gradient(circle at 90% 10%, rgba(255,192,203,0.30), transparent 60%),
+        radial-gradient(circle at 80% 90%, rgba(255,105,180,0.25), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.85;
+      z-index: 0;
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 1.75rem;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      padding: 2.25rem 2.25rem 2.5rem;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 1.75rem 1.6rem 2rem;
+        border-radius: 1.4rem;
+      }
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.20), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(255,182,193,0.18), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .title-block h1 {
+      font-size: clamp(1.6rem, 2.2vw + 1.1rem, 2.2rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .title-pill {
+      font-size: 0.85rem;
+      padding: 0.22rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.5);
+      background: linear-gradient(120deg, rgba(255,255,255,0.3), rgba(255,255,255,0.08));
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .title-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4cffb0;
+      box-shadow: 0 0 12px rgba(76,255,176,0.85);
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      max-width: 26rem;
+    }
+
+    .meta-badge {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.45);
+      background: rgba(0,0,0,0.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .meta-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(255,75,138,0.9);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) auto;
+      gap: 1.75rem;
+      align-items: center;
+    }
+
+    @media (max-width: 680px) {
+      .content {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    .message-wrapper {
+      position: relative;
+      min-height: 110px;
+    }
+
+    .message-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      opacity: 0.75;
+      margin-bottom: 0.4rem;
+    }
+
+    .message-bubble {
+      position: relative;
+      border-radius: 1.4rem;
+      border: 1px solid rgba(255,255,255,0.5);
+      background: linear-gradient(145deg, rgba(255,255,255,0.38), rgba(255,255,255,0.14));
+      padding: 1.1rem 1.2rem 1.2rem;
+      overflow: hidden;
+    }
+
+    .message-text {
+      font-size: 1.02rem;
+      line-height: 1.6;
+      font-weight: 500;
+      color: #3b1437;
+      text-shadow: 0 1px 1px rgba(255,255,255,0.65);
+      opacity: 0;
+      transform: translateY(6px) scale(0.99);
+      transition: opacity var(--transition-med), transform var(--transition-med);
+    }
+
+    .message-text.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .message-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+      opacity: 0.75;
+    }
+
+    .heart-counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .heart-counter span {
+      font-weight: 600;
+    }
+
+    .tip-text {
+      margin-top: 0.5rem;
+      font-size: 0.82rem;
+      opacity: 0.8;
+    }
+
+    .heart-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .heart-button {
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 20%, #ffd1e5, #ff4b8a);
+      box-shadow:
+        0 14px 28px rgba(0,0,0,0.35),
+        0 0 0 6px rgba(255,255,255,0.28);
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+      transform-origin: center;
+    }
+
+    .heart-button:hover {
+      transform: translateY(-4px) scale(1.03);
+      filter: brightness(1.05);
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.45),
+        0 0 0 7px rgba(255,255,255,0.32);
+    }
+
+    .heart-button:active {
+      transform: translateY(0) scale(0.96);
+      box-shadow:
+        0 10px 22px rgba(0,0,0,0.4),
+        0 0 0 3px rgba(255,255,255,0.28);
+    }
+
+    .heart-icon {
+      width: 56px;
+      height: 56px;
+      display: block;
+      filter: drop-shadow(0 8px 10px rgba(0,0,0,0.35));
+      transform-origin: center;
+    }
+
+    .heart-pulse {
+      animation: heartPulse 440ms ease-out;
+    }
+
+    @keyframes heartPulse {
+      0%   { transform: scale(1);   }
+      40%  { transform: scale(1.18);}
+      70%  { transform: scale(0.94);}
+      100% { transform: scale(1);   }
+    }
+
+    .heart-hint {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.24);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .heart-hint-key {
+      padding: 0.1rem 0.4rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255,255,255,0.55);
+      font-size: 0.72rem;
+      background: rgba(255,255,255,0.16);
+    }
+
+    .footer-note {
+      margin-top: 1.1rem;
+      font-size: 0.8rem;
+      opacity: 0.8;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-note span.strong {
+      font-weight: 600;
+    }
+
+    /* Floating click hearts */
+    .floating-heart {
+      position: fixed;
+      font-size: 1.1rem;
+      pointer-events: none;
+      user-select: none;
+      z-index: 2;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.7);
+      animation: floatHeart 1.1s ease-out forwards;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.35));
+    }
+
+    @keyframes floatHeart {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -20%) scale(0.7);
+      }
+      15% {
+        opacity: 1;
+        transform: translate(-50%, -60%) scale(1.05);
+      }
+      60% {
+        opacity: 1;
+        transform: translate(-50%, -140%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -210%) scale(0.9);
+      }
+    }
+
+    /* Background subtle hearts */
+    .bg-hearts {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.32;
+    }
+
+    .bg-heart-shape {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      transform-origin: center;
+      animation: drift 18s linear infinite;
+    }
+
+    .bg-heart-shape:nth-child(odd) {
+      animation-duration: 22s;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translateY(100vh) scale(0.7) rotate(-14deg);
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.05) rotate(8deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-overlay"></div>
+  <div class="bg-hearts" id="bgHearts"></div>
+
+  <main class="app">
+    <section class="card" aria-label="Love messages for my wife">
+      <div class="header-row">
+        <div class="title-block">
+          <h1>
+            For my favourite human
+            <span aria-hidden="true">💫</span>
+          </h1>
+          <div class="title-pill">
+            <span class="title-pill-dot"></span>
+            <span>Tap the heart for a new love note</span>
+          </div>
+          <p class="subtitle">
+            Every click is a little reminder of how much you mean to me. There are infinite reasons I love you — here are a few.
+          </p>
+        </div>
+        <div>
+          <div class="meta-badge">
+            <span class="meta-dot"></span>
+            <span>Live love mode</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="message-wrapper">
+          <p class="message-label">Today’s love note</p>
+          <div class="message-bubble">
+            <p id="messageText" class="message-text"></p>
+            <div class="message-meta">
+              <div class="heart-counter">
+                <span>❤️</span>
+                <span id="clickCount">0</span>
+                <span>clicks</span>
+              </div>
+              <span id="timestamp"></span>
+            </div>
+          </div>
+          <p class="tip-text">
+            PS: No matter how many times you click, my love for you is always more. ♾️
+          </p>
+        </div>
+
+        <div class="heart-panel">
+          <button class="heart-button" id="heartButton" aria-label="Show a new love message">
+            <svg
+              class="heart-icon"
+              viewBox="0 0 64 64"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true">
+              <defs>
+                <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffe1f0"/>
+                  <stop offset="45%" stop-color="#ff4b8a"/>
+                  <stop offset="100%" stop-color="#b3125d"/>
+                </linearGradient>
+              </defs>
+              <path
+                d="M47.5 8C41.9 8 37.3 11.3 32 18.3 26.7 11.3 22.1 8 16.5 8 9.1 8 4 13.6 4 21.4 4 34.4 17.4 43.8 30.7 54.7 31.3 55.2 31.7 55.6 32 55.9 32.3 55.6 32.7 55.2 33.3 54.7 46.6 43.8 60 34.4 60 21.4 60 13.6 54.9 8 47.5 8Z"
+                fill="url(#heartGradient)"/>
+            </svg>
+          </button>
+          <div class="heart-hint">
+            <span>Click the heart</span>
+            <span class="heart-hint-key">❤️</span>
+            <span>to reveal the next message</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        <span>
+          Made with <span class="strong">all my love</span>, just for you.
+        </span>
+        <span id="miniNote"></span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Customize these messages for your wife 💌
+    const loveMessages = [
+      "You are not just my wife, you are my favorite person in the entire universe.",
+      "Every version of my future looks better with you in it.",
+      "Your smile is my favorite place to be.",
+      "If I had to choose you again, I’d still choose you in every lifetime.",
+      "You make ordinary days feel like a beautiful story.",
+      "Your laugh is the soundtrack I never knew my heart needed.",
+      "I fall in love with you a little more every time you look at me.",
+      "Thank you for being my home, my peace, and my greatest adventure.",
+      "No matter how hard the day is, thinking of you makes it soft again.",
+      "You’re my best decision, my calm in chaos, and my forever.",
+      "The world feels kinder and softer just because you’re in it.",
+      "I still get excited knowing I get to spend my life with you.",
+      "You’re the first person I want to tell good news to and the only one I need on the bad days.",
+      "Even on your quiet days, your presence is the loudest comfort in my heart.",
+      "I don’t say it every minute, but I love you every second."
+    ];
+
+    // Shuffle array (Fisher-Yates)
+    function shuffleMessages(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    let messageQueue = shuffleMessages(loveMessages);
+    let clickCount = 0;
+
+    const messageTextEl = document.getElementById("messageText");
+    const clickCountEl = document.getElementById("clickCount");
+    const timestampEl = document.getElementById("timestamp");
+    const heartButton = document.getElementById("heartButton");
+    const miniNote = document.getElementById("miniNote");
+    const bgHearts = document.getElementById("bgHearts");
+
+    function formatTime(date) {
+      const options = {
+        hour: "2-digit",
+        minute: "2-digit"
+      };
+      return date.toLocaleTimeString([], options);
+    }
+
+    function showNextMessage() {
+      if (messageQueue.length === 0) {
+        messageQueue = shuffleMessages(loveMessages);
+      }
+
+      const nextMessage = messageQueue.shift();
+      clickCount++;
+
+      // Animate text change
+      messageTextEl.classList.remove("visible");
+      setTimeout(() => {
+        messageTextEl.textContent = nextMessage;
+        messageTextEl.classList.add("visible");
+      }, 120);
+
+      clickCountEl.textContent = clickCount.toString();
+      timestampEl.textContent = "Last clicked at " + formatTime(new Date());
+
+      // Save to localStorage so it remembers if she refreshes
+      if (window.localStorage) {
+        localStorage.setItem("loveSite_lastMessage", nextMessage);
+        localStorage.setItem("loveSite_clickCount", clickCount.toString());
+      }
+
+      pulseHeart();
+    }
+
+    function pulseHeart() {
+      const icon = document.querySelector(".heart-icon");
+      icon.classList.remove("heart-pulse");
+      void icon.offsetWidth; // force reflow to restart animation
+      icon.classList.add("heart-pulse");
+    }
+
+    function spawnFloatingHeart(x, y) {
+      const heart = document.createElement("div");
+      heart.className = "floating-heart";
+      heart.textContent = "💗";
+
+      heart.style.left = x + "px";
+      heart.style.top = y + "px";
+
+      const scale = 0.8 + Math.random() * 0.6;
+      heart.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+      document.body.appendChild(heart);
+
+      heart.addEventListener("animationend", () => {
+        heart.remove();
+      });
+    }
+
+    function initBackgroundHearts() {
+      const count = 14;
+      for (let i = 0; i < count; i++) {
+        const span = document.createElement("span");
+        span.className = "bg-heart-shape";
+        span.textContent = "❤";
+
+        const left = Math.random() * 100;
+        const delay = Math.random() * -20;
+        const size = 0.7 + Math.random() * 0.9;
+        const opacity = 0.4 + Math.random() * 0.35;
+
+        span.style.left = left + "%";
+        span.style.animationDelay = delay + "s";
+        span.style.transform = `translateY(${80 + Math.random() * 40}vh) scale(${size}) rotate(-12deg)`;
+        span.style.opacity = opacity.toString();
+
+        bgHearts.appendChild(span);
+      }
+    }
+
+    function restoreState() {
+      if (!window.localStorage) return;
+
+      const lastMessage = localStorage.getItem("loveSite_lastMessage");
+      const storedClicks = localStorage.getItem("loveSite_clickCount");
+
+      if (storedClicks) {
+        clickCount = parseInt(storedClicks, 10) || 0;
+        clickCountEl.textContent = clickCount.toString();
+      }
+
+      if (lastMessage) {
+        messageTextEl.textContent = lastMessage;
+        messageTextEl.classList.add("visible");
+      } else {
+        showNextMessage(); // show at least one on first load
+      }
+    }
+
+    function setMiniNote() {
+      const now = new Date();
+      const year = now.getFullYear();
+      miniNote.textContent = `Auto-updating love since ${year}.`;
+    }
+
+    heartButton.addEventListener("click", (event) => {
+      showNextMessage();
+
+      const rect = heartButton.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      spawnFloatingHeart(x, y);
+    });
+
+    // Also trigger heart on Space or Enter when button focused
+    heartButton.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        heartButton.click();
+      }
+    });
+
+    // Little extra: click anywhere creates a soft heart (but not on button itself, we already handle that)
+    document.addEventListener("click", (event) => {
+      const isHeartButton = heartButton.contains(event.target);
+      if (!isHeartButton) {
+        spawnFloatingHeart(event.clientX, event.clientY);
+      }
+    });
+
+    // Initialize
+    initBackgroundHearts();
+    setMiniNote();
+    restoreState();
+  </script>
+</body>
+</html>
