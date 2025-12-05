@@ -271,6 +271,7 @@
 
     .love-timeline {
       margin-top: 6px;
+      margin-bottom: 6px;
     }
 
     .timeline-track {
@@ -314,6 +315,56 @@
     @keyframes fadeInDates {
       0% { opacity: 0; transform: translateY(10px); }
       100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 🔔 Upcoming event highlight */
+    .upcoming-event {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 0.9rem;
+      background: linear-gradient(135deg, rgba(255,244,249,0.95), rgba(255,225,240,0.95));
+      border: 1px solid rgba(255,137,178,0.9);
+      box-shadow: 0 10px 22px rgba(255,137,178,0.30);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    body.theme-night .upcoming-event {
+      background: linear-gradient(135deg, rgba(33,12,60,0.95), rgba(60,18,90,0.95));
+      border-color: rgba(255,189,231,0.85);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.45);
+    }
+
+    .upcoming-event .upcoming-title {
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .upcoming-event .upcoming-main {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .upcoming-event .upcoming-count {
+      font-size: 0.85rem;
+      opacity: 0.95;
+    }
+
+    .upcoming-event.today {
+      border-width: 2px;
+      box-shadow:
+        0 0 0 2px rgba(255,255,255,0.8),
+        0 12px 28px rgba(255,105,180,0.55);
+    }
+
+    .upcoming-event.today .upcoming-title {
+      font-weight: 700;
     }
 
     .content {
@@ -419,7 +470,7 @@
     }
 
     .heart-button:active {
-      transform: translateY(0) scale(0.96);
+      transform: translateY(0);
       box-shadow:
         0 10px 20px rgba(0,0,0,0.4),
         0 0 0 3px rgba(255,255,255,0.24);
@@ -684,6 +735,9 @@
             <span>Birthday</span>
           </div>
         </div>
+
+        <!-- 🔮 Upcoming event box (filled by JS) -->
+        <div id="upcomingEvent" class="upcoming-event" aria-live="polite"></div>
       </div>
 
       <div class="content">
@@ -729,8 +783,8 @@
     </section>
   </main>
 
-  <!-- Background music: ensure soft-piano.mp3 is in same folder -->
-  <audio id="loveAudio" src="soft-piano.mp3" preload="auto" loop></audio>
+  <!-- Click sound: put click.mp3 in same folder -->
+  <audio id="clickAudio" src="https://drive.google.com/uc?id=1RR1w82LLmBvaHI7y2avTNQHcMfn7nIa8" preload="auto"></audio>
 
   <script>
     // 💌 Customize these love messages for ZA if you like
@@ -758,9 +812,7 @@
 
     let messageQueue = shuffle(loveMessages);
     let clickCount = 0;
-    let soundEnabled = true;        // sound ON by default
     let galleryUnlocked = false;
-    let audioStarted = false;       // ensure audio starts once on first interaction
 
     const messageTextEl = document.getElementById("messageText");
     const clickCountEl = document.getElementById("clickCount");
@@ -769,21 +821,51 @@
     const bgHearts = document.getElementById("bgHearts");
     const miniNote = document.getElementById("miniNote");
     const themeToggle = document.getElementById("themeToggle");
-    const loveAudio = document.getElementById("loveAudio");
     const loveCounterEl = document.getElementById("loveCounter");
     const fireworksContainer = document.getElementById("fireworks");
     const photoGallery = document.getElementById("photoGallery");
     const galleryHint = document.getElementById("galleryHint");
+    const upcomingEventEl = document.getElementById("upcomingEvent");
+    const clickAudio = document.getElementById("clickAudio");
 
     const galleryUnlockClicks = 12;
 
-    // Change this to your real marriage date (year, monthIndex, day)
-    // Month index: October = 9 (0 = January)
-    const marriageDate = new Date(2024, 9, 20);
+    // Base marriage date (first time)
+    const marriageDate = new Date(2024, 9, 20); // 20 October 2024
 
-    // Birthday (only month and day checked)
+    // Special events (yearly)
+    const specialEvents = [
+      {
+        key: "nikah",
+        label: "Nikah Day",
+        icon: "📿",
+        month: 10 - 1, // November (0-based)
+        day: 10
+      },
+      {
+        key: "marriage",
+        label: "Marriage Anniversary",
+        icon: "💍",
+        month: 10 - 1, // October (0-based)
+        day: 20
+      },
+      {
+        key: "birthday",
+        label: "Birthday",
+        icon: "🎂",
+        month: 12 - 1, // December (0-based)
+        day: 25
+      }
+    ];
+
+    // Birthday (for fireworks – only month/day checked)
     const birthdayMonth = 11; // December (0-based)
     const birthdayDay = 25;
+
+    const monthNames = [
+      "January","February","March","April","May","June",
+      "July","August","September","October","November","December"
+    ];
 
     function formatTime(date) {
       const options = { hour: "2-digit", minute: "2-digit" };
@@ -795,19 +877,12 @@
       themeToggle.textContent = isNight ? "☀ Day mode" : "🌙 Night mode";
     }
 
-    function startBackgroundAudio() {
-      if (!soundEnabled || !loveAudio || audioStarted) return;
-      audioStarted = true;
-      loveAudio.loop = true;
-      loveAudio.volume = 0.6;
-      loveAudio.play().catch(() => {
-        // autoplay might still be blocked, but next interaction will try again
-        audioStarted = false;
-      });
-    }
-
-    function playSoundIfEnabled() {
-      startBackgroundAudio();
+    function playClickSound() {
+      if (!clickAudio) return;
+      try {
+        clickAudio.currentTime = 0;
+        clickAudio.play().catch(() => {});
+      } catch (e) {}
     }
 
     function showNextMessage() {
@@ -833,7 +908,7 @@
       } catch (e) {}
 
       pulseHeart();
-      playSoundIfEnabled();
+      playClickSound();
       maybeUnlockGallery();
     }
 
@@ -884,6 +959,76 @@
       } else {
         loveCounterEl.textContent = `Our marriage day is coming soon, and my heart is already waiting. 💞`;
       }
+    }
+
+    // 🔮 Find next upcoming special event (Nikah, Marriage, Birthday)
+    function getNextUpcomingEvent() {
+      const today = new Date();
+      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+      let best = null;
+
+      for (const ev of specialEvents) {
+        let year = today.getFullYear();
+        let eventDate = new Date(year, ev.month, ev.day);
+
+        if (eventDate < todayMidnight) {
+          year++;
+          eventDate = new Date(year, ev.month, ev.day);
+        }
+
+        const diffMs = eventDate - todayMidnight;
+        const daysLeft = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+        if (best === null || daysLeft < best.daysLeft) {
+          best = {
+            ...ev,
+            date: eventDate,
+            daysLeft
+          };
+        }
+      }
+
+      return best;
+    }
+
+    function updateUpcomingEventBox() {
+      if (!upcomingEventEl) return;
+
+      const upcoming = getNextUpcomingEvent();
+      if (!upcoming) {
+        upcomingEventEl.textContent = "";
+        return;
+      }
+
+      const { icon, label, date, daysLeft } = upcoming;
+      const day = date.getDate();
+      const monthName = monthNames[date.getMonth()];
+
+      let title, mainLine, countLine;
+
+      if (daysLeft === 0) {
+        upcomingEventEl.classList.add("today");
+        title = `${icon} Today is our special day!`;
+        mainLine = `${label} is TODAY, my love.`;
+        countLine = "Let’s make every second of it memorable. 💞";
+      } else if (daysLeft === 1) {
+        upcomingEventEl.classList.remove("today");
+        title = `${icon} Coming tomorrow`;
+        mainLine = `${label} is almost here — ${day} ${monthName}.`;
+        countLine = `Only 1 day left, and my heart is already excited. 🫶`;
+      } else {
+        upcomingEventEl.classList.remove("today");
+        title = `${icon} Next special day`;
+        mainLine = `${label} is on ${day} ${monthName}.`;
+        countLine = `Only ${daysLeft} days left until we celebrate again. ✨`;
+      }
+
+      upcomingEventEl.innerHTML = `
+        <div class="upcoming-title">${title}</div>
+        <div class="upcoming-main">${mainLine}</div>
+        <div class="upcoming-count">${countLine}</div>
+      `;
     }
 
     function initFireworks() {
@@ -974,7 +1119,6 @@
     }
 
     heartButton.addEventListener("click", () => {
-      startBackgroundAudio();
       showNextMessage();
       const rect = heartButton.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
@@ -993,7 +1137,6 @@
       const isHeartButton = heartButton.contains(event.target);
       if (!isHeartButton) {
         spawnFloatingHeart(event.clientX, event.clientY);
-        startBackgroundAudio();
       }
     });
 
@@ -1012,6 +1155,7 @@
     updateLoveCounter();
     restoreState();
     checkBirthdayEffects();
+    updateUpcomingEventBox();
   </script>
 </body>
 </html>
