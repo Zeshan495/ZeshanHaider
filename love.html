@@ -166,7 +166,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 1rem;
-      margin-bottom: 0.9rem;
+      margin-bottom: 1.2rem;
     }
 
     @media (max-width: 640px) {
@@ -188,6 +188,12 @@
       font-size: 0.95rem;
       opacity: 0.9;
       max-width: 25rem;
+    }
+
+    .card-header p.small-subtitle {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      margin-top: 0.15rem;
     }
 
     .card-controls {
@@ -231,11 +237,200 @@
       opacity: 0.9;
     }
 
+    .content {
+      display: grid;
+      grid-template-columns: 1.45fr auto;
+      gap: 1.7rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 680px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .message-bubble {
+      border-radius: 1.4rem;
+      border: 1px solid rgba(255,182,193,0.9);
+      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,238,245,0.95));
+      padding: 1rem 1.1rem 1.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.theme-night .message-bubble {
+      background: linear-gradient(145deg, rgba(25,10,50,0.9), rgba(12,4,30,0.95));
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .message-text {
+      font-size: 1.03rem;
+      line-height: 1.6;
+      font-weight: 500;
+      color: #4a1035;
+      opacity: 0;
+      transform: translateY(6px) scale(0.99);
+      transition: opacity var(--transition-med), transform var(--transition-med);
+      text-shadow: none;
+    }
+
+    .message-text.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    body.theme-night .message-text {
+      color: #f7ecff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+    }
+
+    .message-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+
+    .message-meta strong {
+      font-weight: 600;
+    }
+
+    /* Love level meter */
+    .love-meter {
+      margin-top: 0.7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .love-meter-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      opacity: 0.9;
+    }
+
+    .love-meter-label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    .love-meter-value {
+      font-weight: 600;
+    }
+
+    .love-meter-bar {
+      position: relative;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,192,203,0.4);
+      overflow: hidden;
+    }
+
+    body.theme-night .love-meter-bar {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .love-meter-fill {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #ffb6d4, #ff4b8a, #b3125d);
+      box-shadow: 0 0 10px rgba(255,105,180,0.7);
+      transition: width 220ms ease-out;
+    }
+
+    .love-meter-fill.full {
+      box-shadow:
+        0 0 12px rgba(255,105,180,0.9),
+        0 0 18px rgba(255,150,210,0.9);
+    }
+
+    .hint-line {
+      font-size: 0.84rem;
+      margin-top: 0.55rem;
+      opacity: 0.9;
+    }
+
+    .heart-panel {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .heart-button {
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      background: radial-gradient(circle at 30% 20%, #ffe1f0, #ff4b8a);
+      box-shadow:
+        0 14px 28px rgba(0,0,0,0.35),
+        0 0 0 6px rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+    }
+
+    .heart-button:hover {
+      transform: translateY(-4px) scale(1.04);
+      filter: brightness(1.05);
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.45),
+        0 0 0 8px rgba(255,255,255,0.28);
+    }
+
+    .heart-button:active {
+      transform: translateY(0);
+      box-shadow:
+        0 10px 20px rgba(0,0,0,0.4),
+        0 0 0 3px rgba(255,255,255,0.24);
+    }
+
+    .heart-icon {
+      width: 60px;
+      height: 60px;
+      display: block;
+      filter: drop-shadow(0 8px 10px rgba(0,0,0,0.35));
+      transform-origin: center;
+    }
+
+    .heart-pulse {
+      animation: heartPulse 440ms ease-out;
+    }
+
+    @keyframes heartPulse {
+      0%   { transform: scale(1);   }
+      40%  { transform: scale(1.18);}
+      70%  { transform: scale(0.94);}
+      100% { transform: scale(1);   }
+    }
+
+    .heart-hint {
+      font-size: 0.82rem;
+      opacity: 0.9;
+    }
+
     /* ==== Special Dates + Timeline ==== */
     .special-dates {
       border-radius: 1rem;
       padding: 12px 15px 15px;
-      margin: 8px 0 20px;
+      margin: 4px 0 0;
       background: rgba(255,255,255,0.8);
       border: 1px solid rgba(255,182,193,0.9);
       backdrop-filter: blur(12px);
@@ -344,6 +539,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      justify-content: space-between;
     }
 
     .upcoming-event .upcoming-main {
@@ -367,137 +563,19 @@
       font-weight: 700;
     }
 
-    .content {
-      display: grid;
-      grid-template-columns: 1.45fr auto;
-      gap: 1.7rem;
-      align-items: center;
-    }
-
-    @media (max-width: 680px) {
-      .content {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .message-bubble {
-      border-radius: 1.4rem;
-      border: 1px solid rgba(255,182,193,0.9);
-      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,238,245,0.95));
-      padding: 1rem 1.1rem 1.1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    body.theme-night .message-bubble {
-      background: linear-gradient(145deg, rgba(25,10,50,0.9), rgba(12,4,30,0.95));
-      border-color: rgba(255,255,255,0.25);
-    }
-
-    .message-text {
-      font-size: 1.03rem;
-      line-height: 1.6;
-      font-weight: 500;
-      color: #4a1035;
-      opacity: 0;
-      transform: translateY(6px) scale(0.99);
-      transition: opacity var(--transition-med), transform var(--transition-med);
-      text-shadow: none;
-    }
-
-    .message-text.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    body.theme-night .message-text {
-      color: #f7ecff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.9);
-    }
-
-    .message-meta {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 0.6rem;
-      font-size: 0.8rem;
-      opacity: 0.85;
-    }
-
-    .message-meta strong {
-      font-weight: 600;
-    }
-
-    .hint-line {
-      font-size: 0.84rem;
-      margin-top: 0.55rem;
-      opacity: 0.9;
-    }
-
-    .heart-panel {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    .heart-button {
-      width: 120px;
-      height: 120px;
+    .upcoming-soon {
+      font-size: 0.72rem;
+      padding: 2px 8px;
       border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      outline: none;
-      background: radial-gradient(circle at 30% 20%, #ffe1f0, #ff4b8a);
-      box-shadow:
-        0 14px 28px rgba(0,0,0,0.35),
-        0 0 0 6px rgba(255,255,255,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition:
-        transform var(--transition-fast),
-        box-shadow var(--transition-fast),
-        filter var(--transition-fast);
+      background: rgba(255,192,203,0.9);
+      color: #4a1035;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
-    .heart-button:hover {
-      transform: translateY(-4px) scale(1.04);
-      filter: brightness(1.05);
-      box-shadow:
-        0 20px 40px rgba(0,0,0,0.45),
-        0 0 0 8px rgba(255,255,255,0.28);
-    }
-
-    .heart-button:active {
-      transform: translateY(0);
-      box-shadow:
-        0 10px 20px rgba(0,0,0,0.4),
-        0 0 0 3px rgba(255,255,255,0.24);
-    }
-
-    .heart-icon {
-      width: 60px;
-      height: 60px;
-      display: block;
-      filter: drop-shadow(0 8px 10px rgba(0,0,0,0.35));
-      transform-origin: center;
-    }
-
-    .heart-pulse {
-      animation: heartPulse 440ms ease-out;
-    }
-
-    @keyframes heartPulse {
-      0%   { transform: scale(1);   }
-      40%  { transform: scale(1.18);}
-      70%  { transform: scale(0.94);}
-      100% { transform: scale(1);   }
-    }
-
-    .heart-hint {
-      font-size: 0.82rem;
-      opacity: 0.9;
+    body.theme-night .upcoming-soon {
+      background: rgba(255,189,231,0.95);
+      color: #2a0020;
     }
 
     .footer-note {
@@ -575,68 +653,6 @@
       }
     }
 
-    /* ==== Photo Gallery (unlocked after X clicks) ==== */
-    .photo-gallery {
-      margin-top: 1.4rem;
-      padding-top: 1rem;
-      border-top: 1px dashed rgba(255,255,255,0.45);
-      animation: fadeInDates 0.9s ease-out;
-    }
-
-    .photo-gallery.locked {
-      display: none;
-    }
-
-    .photo-gallery h2 {
-      font-size: 1rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .gallery-hint {
-      font-size: 0.8rem;
-      opacity: 0.9;
-      margin-bottom: 0.7rem;
-    }
-
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.75rem;
-    }
-
-    @media (max-width: 640px) {
-      .photo-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .photo-grid figure {
-      margin: 0;
-      border-radius: 0.9rem;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.45);
-      background: rgba(0,0,0,0.12);
-      box-shadow: 0 10px 18px rgba(0,0,0,0.35);
-    }
-
-    body.theme-night .photo-grid figure {
-      border-color: rgba(255,255,255,0.25);
-      background: rgba(0,0,0,0.4);
-    }
-
-    .photo-grid img {
-      display: block;
-      width: 100%;
-      height: 170px;
-      object-fit: cover;
-    }
-
-    .photo-grid figcaption {
-      padding: 0.4rem 0.6rem 0.55rem;
-      font-size: 0.78rem;
-      opacity: 0.95;
-    }
-
     /* ==== Fireworks for Birthday ==== */
     .fireworks-container {
       position: fixed;
@@ -706,9 +722,7 @@
       <div class="card-header">
         <div>
           <h1>For Golu, 💖</h1>
-          <p class="subtitle">
-            Tap the heart and let my love speak in little notes, one click at a time.
-          </p>
+          <p id="greetingLine" class="subtitle small-subtitle"></p>
         </div>
         <div class="card-controls">
           <button id="themeToggle" class="pill-btn" type="button">
@@ -717,29 +731,7 @@
         </div>
       </div>
 
-      <!-- Special dates + love counter + animated timeline -->
-      <div class="special-dates">
-        <div class="dates-row">
-          <div class="date-item">📿 Nikah Day — <b>10 November</b></div>
-          <div class="date-item">💍 Marriage Day — <b>20 October</b></div>
-          <div class="date-item">🎂 Birthday — <b>25 December</b></div>
-        </div>
-        <div class="love-counter" id="loveCounter"></div>
-        <div class="love-timeline">
-          <div class="timeline-track">
-            <div class="timeline-heart">💗</div>
-          </div>
-          <div class="timeline-labels">
-            <span>Nikah</span>
-            <span>Marriage</span>
-            <span>Birthday</span>
-          </div>
-        </div>
-
-        <!-- 🔮 Upcoming event box (filled by JS) -->
-        <div id="upcomingEvent" class="upcoming-event" aria-live="polite"></div>
-      </div>
-
+      <!-- ❤️ Heart + message section FIRST -->
       <div class="content">
         <div>
           <div class="message-bubble">
@@ -748,7 +740,19 @@
               <span>❤️ Clicks: <strong id="clickCount">0</strong></span>
               <span id="timestamp"></span>
             </div>
+
+            <!-- Love level meter -->
+            <div class="love-meter">
+              <div class="love-meter-top">
+                <span class="love-meter-label">Love level</span>
+                <span id="loveLevelText" class="love-meter-value">Level 1</span>
+              </div>
+              <div class="love-meter-bar">
+                <div id="loveLevelFill" class="love-meter-fill"></div>
+              </div>
+            </div>
           </div>
+
           <p class="hint-line">
             Every tap is one extra “I love you” from my heart to yours. 💗
           </p>
@@ -776,15 +780,35 @@
         </div>
       </div>
 
+      <!-- Then Nikah / Marriage / Birthday section -->
+      <div class="special-dates">
+        <div class="dates-row">
+          <div class="date-item">📿 Nikah Day — <b>10 November</b></div>
+          <div class="date-item">💍 Marriage Day — <b>20 October</b></div>
+          <div class="date-item">🎂 Birthday — <b>24 December</b></div>
+        </div>
+        <div class="love-counter" id="loveCounter"></div>
+        <div class="love-timeline">
+          <div class="timeline-track">
+            <div class="timeline-heart">💗</div>
+          </div>
+          <div class="timeline-labels">
+            <span>Nikah</span>
+            <span>Marriage</span>
+            <span>Birthday</span>
+          </div>
+        </div>
+
+        <!-- 🔮 Upcoming event box (filled by JS) -->
+        <div id="upcomingEvent" class="upcoming-event" aria-live="polite"></div>
+      </div>
+
       <div class="footer-note">
-        <span>Made with <b>all my love</b> for you, ZA.</span>
+        <span>Made with 💖 <b>all my love</b> for you</span>
         <span id="miniNote"></span>
       </div>
     </section>
   </main>
-
-  <!-- Click sound: put click.mp3 in same folder -->
-  <audio id="clickAudio" src="https://drive.google.com/uc?id=1RR1w82LLmBvaHI7y2avTNQHcMfn7nIa8" preload="auto"></audio>
 
   <script>
     // 💌 Customize these love messages for ZA if you like
@@ -812,7 +836,6 @@
 
     let messageQueue = shuffle(loveMessages);
     let clickCount = 0;
-    let galleryUnlocked = false;
 
     const messageTextEl = document.getElementById("messageText");
     const clickCountEl = document.getElementById("clickCount");
@@ -823,12 +846,41 @@
     const themeToggle = document.getElementById("themeToggle");
     const loveCounterEl = document.getElementById("loveCounter");
     const fireworksContainer = document.getElementById("fireworks");
-    const photoGallery = document.getElementById("photoGallery");
-    const galleryHint = document.getElementById("galleryHint");
     const upcomingEventEl = document.getElementById("upcomingEvent");
-    const clickAudio = document.getElementById("clickAudio");
+    const greetingLineEl = document.getElementById("greetingLine");
+    const loveLevelTextEl = document.getElementById("loveLevelText");
+    const loveLevelFillEl = document.getElementById("loveLevelFill");
 
-    const galleryUnlockClicks = 12;
+    // Web Audio click sound (no external file)
+    let audioCtx = null;
+    function playClickSound() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        const ctx = audioCtx;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        const now = ctx.currentTime;
+        const duration = 0.08; // 80 ms
+
+        osc.type = "square";
+        osc.frequency.setValueAtTime(3200, now);
+
+        gain.gain.setValueAtTime(0.6, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + duration);
+      } catch (e) {
+        // ignore if audio blocked
+      }
+    }
 
     // Base marriage date (first time)
     const marriageDate = new Date(2024, 9, 20); // 20 October 2024
@@ -839,7 +891,7 @@
         key: "nikah",
         label: "Nikah Day",
         icon: "📿",
-        month: 10 - 1, // November (0-based)
+        month: 11 - 1, // November (0-based)
         day: 10
       },
       {
@@ -854,13 +906,13 @@
         label: "Birthday",
         icon: "🎂",
         month: 12 - 1, // December (0-based)
-        day: 25
+        day: 24
       }
     ];
 
     // Birthday (for fireworks – only month/day checked)
     const birthdayMonth = 11; // December (0-based)
-    const birthdayDay = 25;
+    const birthdayDay = 24;
 
     const monthNames = [
       "January","February","March","April","May","June",
@@ -877,12 +929,47 @@
       themeToggle.textContent = isNight ? "☀ Day mode" : "🌙 Night mode";
     }
 
-    function playClickSound() {
-      if (!clickAudio) return;
-      try {
-        clickAudio.currentTime = 0;
-        clickAudio.play().catch(() => {});
-      } catch (e) {}
+    function updateGreetingLine() {
+      if (!greetingLineEl) return;
+      const now = new Date();
+      const hour = now.getHours();
+      let text = "Good evening, my love.";
+
+      if (hour >= 5 && hour < 12) {
+        text = "Good morning, my love. 🌅";
+      } else if (hour >= 12 && hour < 17) {
+        text = "Good afternoon, my love. 🌸";
+      } else if (hour >= 17 && hour < 22) {
+        text = "Good evening, my love. 🌙";
+      } else {
+        text = "Can’t sleep without loving you a little more. 🌌";
+      }
+
+      greetingLineEl.textContent = text;
+    }
+
+    function updateLoveMeter() {
+      if (!loveLevelTextEl || !loveLevelFillEl) return;
+
+      const level = Math.max(1, Math.floor(clickCount / 20) + 1);
+      const withinLevel = clickCount % 20;
+      const percent = Math.min((withinLevel / 20) * 100, 100);
+
+      let labelSuffix = "";
+      if (level === 1) labelSuffix = "– just getting started";
+      else if (level === 2) labelSuffix = "– kinda obsessed";
+      else if (level === 3) labelSuffix = "– fully addicted to you";
+      else if (level === 4) labelSuffix = "– heart belongs to you";
+      else labelSuffix = "– beyond infinity 💞";
+
+      loveLevelTextEl.textContent = `Level ${level} ${labelSuffix}`;
+      loveLevelFillEl.style.width = percent + "%";
+
+      if (percent >= 99) {
+        loveLevelFillEl.classList.add("full");
+      } else {
+        loveLevelFillEl.classList.remove("full");
+      }
     }
 
     function showNextMessage() {
@@ -909,7 +996,7 @@
 
       pulseHeart();
       playClickSound();
-      maybeUnlockGallery();
+      updateLoveMeter();
     }
 
     function pulseHeart() {
@@ -1006,6 +1093,7 @@
       const monthName = monthNames[date.getMonth()];
 
       let title, mainLine, countLine;
+      let soonBadge = "";
 
       if (daysLeft === 0) {
         upcomingEventEl.classList.add("today");
@@ -1017,15 +1105,22 @@
         title = `${icon} Coming tomorrow`;
         mainLine = `${label} is almost here — ${day} ${monthName}.`;
         countLine = `Only 1 day left, and my heart is already excited. 🫶`;
+        soonBadge = `<span class="upcoming-soon">very soon</span>`;
       } else {
         upcomingEventEl.classList.remove("today");
         title = `${icon} Next special day`;
         mainLine = `${label} is on ${day} ${monthName}.`;
         countLine = `Only ${daysLeft} days left until we celebrate again. ✨`;
+        if (daysLeft <= 7) {
+          soonBadge = `<span class="upcoming-soon">very soon</span>`;
+        }
       }
 
       upcomingEventEl.innerHTML = `
-        <div class="upcoming-title">${title}</div>
+        <div class="upcoming-title">
+          <span>${title}</span>
+          ${soonBadge}
+        </div>
         <div class="upcoming-main">${mainLine}</div>
         <div class="upcoming-count">${countLine}</div>
       `;
@@ -1058,7 +1153,6 @@
         const lastMessage = localStorage.getItem("loveSite_lastMessage");
         const storedClicks = localStorage.getItem("loveSite_clickCount");
         const savedTheme = localStorage.getItem("loveSite_theme");
-        const savedGallery = localStorage.getItem("loveSite_galleryUnlocked");
 
         if (storedClicks) {
           clickCount = parseInt(storedClicks, 10) || 0;
@@ -1075,47 +1169,17 @@
         if (savedTheme === "night") {
           document.body.classList.add("theme-night");
         }
-
-        galleryUnlocked = savedGallery === "true";
       } catch (e) {
         // ignore localStorage errors
       }
 
-      if (galleryUnlocked) {
-        unlockGalleryUI();
-      }
-
       updateThemeToggleText();
+      updateLoveMeter();
     }
 
     function setMiniNote() {
       const year = new Date().getFullYear();
       miniNote.textContent = `Love engine running since ${year}.`;
-    }
-
-    function unlockGalleryUI() {
-      if (!photoGallery) return;
-      photoGallery.classList.remove("locked");
-      photoGallery.setAttribute("aria-hidden", "false");
-      if (galleryHint) {
-        galleryHint.textContent = "Unlocked by your love taps. These are our favourite Nikah & wedding moments. 🕊️";
-      }
-    }
-
-    function maybeUnlockGallery() {
-      if (galleryUnlocked || !photoGallery) return;
-      if (clickCount >= galleryUnlockClicks) {
-        galleryUnlocked = true;
-        unlockGalleryUI();
-        try {
-          localStorage.setItem("loveSite_galleryUnlocked", "true");
-        } catch (e) {}
-      } else if (galleryHint) {
-        const remaining = galleryUnlockClicks - clickCount;
-        if (remaining > 0) {
-          galleryHint.textContent = `Only ${remaining} more tap${remaining !== 1 ? "s" : ""} to unlock our photo memories…`;
-        }
-      }
     }
 
     heartButton.addEventListener("click", () => {
@@ -1156,6 +1220,7 @@
     restoreState();
     checkBirthdayEffects();
     updateUpcomingEventBox();
+    updateGreetingLine();
   </script>
 </body>
 </html>
